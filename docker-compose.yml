@@ -1,0 +1,26 @@
+version: '3'
+services:
+  web:
+    build: .
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9092:80"
+    depends_on:
+      - connect-mysql
+    networks:
+      - atende
+
+  volumes:
+      - ./src:/var/www/html
+    environment:
+      MYSQL_HOST: 172.20.0.4
+      MYSQL_DATABASE: connect-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Ncm@647534
+    networks:
+      - atende
+
+networks:
+  atende:
+    driver: bridge
