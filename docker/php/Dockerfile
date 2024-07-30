@@ -1,42 +1,43 @@
-FROM php:8.2-fpm
+# Use uma imagem oficial do PHP com Apache
+FROM php:7.4.33-apache
 
+# Defina o diretório de trabalho
 WORKDIR /var/www
 
-RUN rm -rf /var/www/html
-
+# Instale as dependências do sistema
 RUN apt-get update && apt-get install -y \
-    build-essential \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
-    locales \
+    libzip-dev \
     zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
     unzip \
     git \
-    curl \
-    libzip-dev \
-    apt-utils \
-    libonig-dev
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install zip
 
-RUN docker-php-ext-install zip pdo_mysql mbstring exif
-RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
-RUN docker-php-ext-install gd
+# Instale o Composer
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
-RUN mkdir -p /usr/src/php/ext/redis; \
-	curl -fsSL https://pecl.php.net/get/redis --ipv4 | tar xvz -C "/usr/src/php/ext/redis" --strip 1; \
-	docker-php-ext-install redis;
+# Copie o arquivo composer.json e composer.lock antes de copiar o restante dos arquivos
+COPY composer.json composer.lock /var/www/
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Instale as dependências do Laravel
+RUN composer install --no-dev --optimize-autoloader || { cat /var/www/vendor/composer/installed.json; exit 1; }
 
-RUN groupadd -g 1000 laravel
-RUN useradd -u 1000 -ms /bin/bash -g laravel user
+# Copie os arquivos da aplicação para o contêiner
+COPY . /var/www
 
-COPY --chown=user:laravel . /var/www
+# Configure o Apache
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-USER user
+# Gere a chave da aplicação Laravel
+RUN php artisan key:generate
 
-EXPOSE 9000
+# Exponha a porta 80
+EXPOSE 80
 
-CMD ["php-fpm"]
+# Comando para iniciar o servidor Apache
+CMD ["apache2-foreground"]
