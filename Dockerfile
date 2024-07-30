@@ -24,8 +24,11 @@ COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 # Copie o arquivo composer.json e composer.lock antes de copiar o restante dos arquivos
 COPY composer.json composer.lock /var/www/
 
+# Limpe o cache do Composer
+RUN composer clear-cache
+
 # Instale as dependências do Laravel
-RUN composer install --no-dev --optimize-autoloader || { cat /var/www/vendor/composer/installed.json; exit 1; }
+RUN composer install --no-dev --optimize-autoloader
 
 # Copie os arquivos da aplicação para o contêiner
 COPY . /var/www
