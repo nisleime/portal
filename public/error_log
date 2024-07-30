@@ -1,0 +1,1 @@
+[03-Nov-2021 18:07:00 America/Sao_Paulo] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 5.6.40. in /home/apolloerpcom/public_html/contador/vendor/composer/platform_check.php on line 25
