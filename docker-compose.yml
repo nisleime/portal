@@ -12,7 +12,7 @@ services:
       - ./demo:/var/www
       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - setup-network
+      - atende
 
   nginx:
     container_name: setup-nginx
@@ -30,13 +30,6 @@ services:
     networks:
       - atende
 
-  mysql:
-    environment:
-      MYSQL_HOST: 172.20.0.4
-      MYSQL_DATABASE: contador
-      MYSQL_USER: root
-      MYSQL_PASSWORD: Ncm@647534
-
   phpmyadmin:
     container_name: setup-phpmyadmin
     image: phpmyadmin:5.2
@@ -47,22 +40,20 @@ services:
       - atende
     environment:
       PMA_HOST: connect-mysql
+      PMA_USER: root
+      PMA_PASSWORD: Ncm@647534
+      PMA_PORT: 3306
     depends_on:
       - connect-mysql
 
   redis:
     container_name: setup-redis
-    build:
-      context: ./docker/redis
-      dockerfile: Dockerfile
+    image: redis:6.2
     ports:
       - '6379:6379'
+    networks:
+      - atende
 
 networks:
   atende:
     driver: bridge
-
-
-volumes:
-  setup-data:
-    driver: local
