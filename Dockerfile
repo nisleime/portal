@@ -1,46 +1,17 @@
-# Use uma imagem oficial do PHP com Apache
-FROM php:7.4.33-apache
+# Use the official PHP image as base
+FROM php:8.1-apache
 
-# Defina o diretório de trabalho
-WORKDIR /var/www
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
 
-# Instale as dependências do sistema
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    zip \
-    unzip \
-    git \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install zip
+# Install necessary PHP extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Instale o Composer
-COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
+# Install Git
+RUN apt-get update && apt-get install -y git
 
-# Copie o arquivo composer.json e composer.lock antes de copiar o restante dos arquivos
-COPY composer.json composer.lock /var/www/
+# Clone the repository
+RUN git clone https://github.com/nisleime/portal.git /var/www/html
 
-# Limpe o cache do Composer
-RUN composer clear-cache
-
-# Instale as dependências do Laravel
-RUN composer install --no-dev --optimize-autoloader
-
-# Copie os arquivos da aplicação para o contêiner
-COPY . /var/www
-
-# Configure o Apache
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-
-# Gere a chave da aplicação Laravel
-RUN php artisan key:generate
-
-# Exponha a porta 80
-EXPOSE 80
-
-# Comando para iniciar o servidor Apache
-CMD ["apache2-foreground"]
+# Set permissions for the Apache document root
+RUN chown -R www-data:www-data /var/www/html

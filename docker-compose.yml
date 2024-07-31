@@ -1,59 +1,16 @@
-version: '3'
+version: '3.8'
 
 services:
-  php:
-    container_name: setup-php
+  web:
     build:
-      context: ./docker/php
+      context: .
       dockerfile: Dockerfile
-    restart: unless-stopped
-    tty: true
-    volumes:
-      - .:/var/www
-      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - atende
-
-  nginx:
-    container_name: setup-nginx
-    build:
-      context: ./docker/nginx
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    tty: true
     ports:
-      - '9020:80'
-      - '9443:443'
+      - "9040:80"
     volumes:
-      - .:/var/www
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - atende
-
-  phpmyadmin:
-    container_name: setup-phpmyadmin
-    image: phpmyadmin:5.2
-    restart: always
-    ports:
-      - '8888:80'
-    networks:
-      - atende
+      - ./src:/var/www/html
     environment:
-      PMA_HOST: connect-mysql
-      PMA_USER: root
-      PMA_PASSWORD: Ncm@647534
-      PMA_PORT: 3306
-    depends_on:
-      - connect-mysql
-
-  redis:
-    container_name: setup-redis
-    image: redis:6.2
-    ports:
-      - '6379:6379'
-    networks:
-      - atende
-
-networks:
-  atende:
-    driver: bridge
+      MYSQL_HOST: 172.20.0.4
+      MYSQL_DATABASE: connect-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Ncm@647534
