@@ -16,12 +16,14 @@ class CardInfoDocument extends Component
     public $total_cte = 0;
     public $total_mdfe = 0;
     public $total_cfesat = 0;
+    public $total_nfse = 0;
 
     public $qty_nfe = 0;
     public $qty_nfce = 0;
     public $qty_cte = 0;
     public $qty_mdfe = 0;
     public $qty_cfesat = 0;
+    public $qty_nfse = 0;
 
     public $search;
 
@@ -49,12 +51,14 @@ class CardInfoDocument extends Component
             'total_mdfe',
             'total_cfesat',
             'total_nfce',
+            'total_nfse',
 
             'qty_nfe',
             'qty_cte',
             'qty_mdfe',
             'qty_cfesat',
             'qty_nfce',
+            'qty_nfse',
 
         ]);
         $this->getTotals();
@@ -110,6 +114,7 @@ class CardInfoDocument extends Component
                     $this->total_nfce = $doc->total;
                     $this->qty_nfce = $doc->qty;
                     break;
+                   
             }
         }
     }

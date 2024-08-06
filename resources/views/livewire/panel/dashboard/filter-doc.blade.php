@@ -84,7 +84,7 @@
                             <option value="55">NF-e</option>
                             <option value="57">CT-e</option>
                             <option value="58">MDF-e</option>
-                            <option value="59">Entrada</option>
+                            <option value="59">CFeSAT</option>
                             <option value="65">NFC-e</option>
                         </select>
                     </div>

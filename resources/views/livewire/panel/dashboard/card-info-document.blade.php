@@ -72,7 +72,7 @@
 
         <div class="dash-info-icon ocean">
             <div class="col">
-                <span class="big-text">NF-e Entrada</span>
+                <span class="big-text">CF-e SAT</span>
                 <span class="small-text">R$ {{ number_format($total_cfesat, 2, ',', '.') }}</span>
                 <small>QTD: {{ number_format($qty_cfesat, 0, '.', '.') }}</small>
             </div>
@@ -84,5 +84,22 @@
         </div>
 
     </div>
+
+<!--  <div class="col-20 mb-30">
+
+   <div class="dash-info-icon ocean">
+      <div class="col">
+        <span class="big-text">NFSe</span>
+        <span class="small-text">R$ {{ number_format($total_nfse, 2, ',', '.') }}</span>
+        <small>QTD: {{ number_format($qty_nfse, 0, '.', '.') }}</small>
+      </div>
+      <div class="col">
+        <span class="icon">
+            <i class="fas fa-file-invoice-dollar"></i>
+        </span>
+      </div>
+    </div> 
+
+  </div> -->
 
 </div>
