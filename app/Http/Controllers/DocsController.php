@@ -855,7 +855,7 @@ class DocsController extends Controller
                     $pdf = $damdfe->render();
                     break;
 					
-				case 59: // Entrada
+				case 59: // CF-e Sat
                     $danfe = new Danfe($xml);
                     $danfe->debugMode(false);
                     $danfe->setDefaultFont($fontDefault);
