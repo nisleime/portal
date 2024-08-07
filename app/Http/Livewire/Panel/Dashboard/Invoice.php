@@ -116,7 +116,7 @@ class Invoice extends Component
                     $model = 'MDF-e';
                     break;
                 case 59:
-                    $model = 'Entrada';
+                    $model = 'CF-e Sat';
                     break;
                 case 65:
                     $model = 'NFC-e';

@@ -65,6 +65,13 @@
                                                 Imprimir pdf
                                             </a> 
                                                 @break
+                                            @case(59)
+                                            <a class="dropdown-item" target="_blank"
+                                                href="{{ route('panel.docs.print.event.sat', ['id' => $event->id]) }}">
+                                                <i class="fas fa-print"></i>
+                                                Imprimir pdf
+                                            </a> 
+                                                @break    
                                             @case(57)
                                                 <a class="dropdown-item" target="_blank"
                                                     href="{{ route('panel.docs.print.event.cte', ['id' => $event->id]) }}">
@@ -99,7 +106,7 @@
                                 @elseif ($event->model == 58)
                                     <span class="badge badge-blue">MDF-e</span>
                                 @elseif ($event->model == 59)
-                                    <span class="badge badge-blue">Entrada</span>
+                                    <span class="badge badge-blue">CF-e Sat</span>
                                 @elseif ($event->model == 65)
                                     <span class="badge badge-blue">NFC-e</span>
                                 @endif

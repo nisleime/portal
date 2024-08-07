@@ -64,7 +64,7 @@
                     @elseif ($invoice->model == 58)
                         <span class="badge badge-blue">MDF-e</span>
                     @elseif ($invoice->model == 59)
-                        <span class="badge badge-blue">Entrada</span>
+                        <span class="badge badge-blue">CF-e Sat</span>
                     @elseif ($invoice->model == 65)
                         <span class="badge badge-blue">NFC-e</span>
                     @endif

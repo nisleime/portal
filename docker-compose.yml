@@ -11,6 +11,6 @@ services:
       - ./src:/var/www/html
     environment:
       MYSQL_HOST: 172.20.0.4
-      MYSQL_DATABASE: connect-mysql
+      MYSQL_DATABASE: contador
       MYSQL_USER: root
       MYSQL_PASSWORD: Ncm@647534

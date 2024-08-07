@@ -51,7 +51,7 @@ class InvoiceQtyTotal extends Component
                                 WHEN 55 THEN "NF-e"
                                 WHEN 57 THEN "CT-e"
                                 WHEN 58 THEN "MDF-e"
-                                WHEN 59 THEN "Entrada"
+                                WHEN 59 THEN "CF-e Sat"
                                 WHEN 65 THEN "NFC-e"
                             END AS model,
                             SUM(vNF) AS total

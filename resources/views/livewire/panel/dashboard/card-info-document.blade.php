@@ -72,7 +72,7 @@
 
         <div class="dash-info-icon ocean">
             <div class="col">
-                <span class="big-text">CF-e SAT</span>
+                <span class="big-text">CF-e Sat</span>
                 <span class="small-text">R$ {{ number_format($total_cfesat, 2, ',', '.') }}</span>
                 <small>QTD: {{ number_format($qty_cfesat, 0, '.', '.') }}</small>
             </div>
