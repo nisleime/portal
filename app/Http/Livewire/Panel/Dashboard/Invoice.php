@@ -184,7 +184,7 @@ class Invoice extends Component
         ->orderBy('issue_dh', 'ASC');
 
         if ($paginate) {
-            return $documents->paginate(env('PAGINATION_LIMIT', 5));
+            return $documents->paginate((int) env('PAGINATION_LIMIT', 5));
         }
 
         return $documents->get();
